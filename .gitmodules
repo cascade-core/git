@@ -1,0 +1,3 @@
+[submodule "glip"]
+	path = glip
+	url = ssh://git@akvarko.frozen-doe.net/glip.git
