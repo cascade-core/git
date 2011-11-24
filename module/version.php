@@ -179,7 +179,7 @@ class M_git__version extends Module
 
 		try {
 			$repo = new Git($repo_dir);
-			$head = $repo->getTip('master');	// FIXME: read current head
+			$head = $repo->getHead();
 
 			// Current version
 			$version = $repo->describe($head);
