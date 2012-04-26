@@ -28,17 +28,21 @@
  * SUCH DAMAGE.
  */
 
+/**
+ * Load version ifo using Glip library. This is replacement of
+ * core/devel/version block. No external binary is executed.
+ */
 
 class B_git__version extends Block
 {
 	const force_exec = true;
 
 	protected $inputs = array(
-		'filename' => '{DIR_ROOT}var/version.ini.php',
+		'filename' => '{DIR_ROOT}var/version.ini.php', // Version info file.
 		'format' => 'short',	// 'short' = only app version, 'details' = everything
-		'link' => null,		// when 'short' format, link to this url
-		'prefix' => null,	// when 'short' format, prepend this string (some delimiter or so)
-		'suffix' => null,	// when 'short' format, append this string (some delimiter or so)
+		'link' => null,		// When 'short' format, link to this url.
+		'prefix' => null,	// When 'short' format, prepend this string (some delimiter or so).
+		'suffix' => null,	// When 'short' format, append this string (some delimiter or so).
 		'slot' => 'default',
 		'slot_weight' => 50,
 	);
