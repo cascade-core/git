@@ -161,7 +161,7 @@ class B_git__version extends Block
 			}
 		}
 
-		//NDebug::barDump($info, 'Version info');
+		//NDebugger::barDump($info, 'Version info');
 
 		write_ini_file($file, $info, TRUE,
 			 ";\074?php echo \"<pre style=\\\"margin:0;\\\">\\n\"; ?\076\n"
