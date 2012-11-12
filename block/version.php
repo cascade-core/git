@@ -56,7 +56,7 @@ class B_git__version extends Block
 	{
 		$version_file = template_format($this->in('filename'), get_defined_constants(), null);
 		$version_mtime = @filemtime($version_file);
-		$version_size = @filesize($version_size);
+		$version_size = @filesize($version_file);
 
 		$format = $this->in('format');
 
