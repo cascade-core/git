@@ -40,6 +40,7 @@ class B_git__version extends Block
 	protected $inputs = array(
 		'filename' => '{DIR_ROOT}var/version.ini.php', // Version info file.
 		'format' => 'short',	// 'short' = only app version, 'details' = everything
+		'short_check' => false,	// Check for changes when showing only app version (deploy should delete version file, so this is usualy useless).
 		'link' => null,		// When 'short' format, link to this url.
 		'prefix' => null,	// When 'short' format, prepend this string (some delimiter or so).
 		'suffix' => null,	// When 'short' format, append this string (some delimiter or so).
@@ -64,7 +65,10 @@ class B_git__version extends Block
 		if (@filemtime(__FILE__) > $version_mtime) {
 			// This PHP code changed
 			$need_update = true;
-		} else if (!$version_mtime || ($version_size < 10 && $version_mtime + 28800 < time()) || $this->is_git_repo_newer($version_mtime, DIR_ROOT)) {
+		} else if (!$version_mtime || $version_size < 10) {
+			// Update if cache file is missing or too small
+			$need_update = true;
+		} else if ($this->in('short_check') && $this->is_git_repo_newer($version_mtime, DIR_ROOT)) {
 			// Short format needs only app version, so do not check everything
 			$need_update = true;
 		} else if ($format != 'short') {
@@ -139,6 +143,8 @@ class B_git__version extends Block
 
 	private function build_version_file($file)
 	{
+		log_msg('Updating version file "%s".', $file);
+
 		$info['app'] = $this->get_info(DIR_ROOT.'.git');
 		$info['core'] = $this->get_info(DIR_CORE.'.git');
 
