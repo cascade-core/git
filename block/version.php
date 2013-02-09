@@ -68,12 +68,12 @@ class B_git__version extends Block
 		} else if (!$version_mtime || $version_size < 10) {
 			// Update if cache file is missing or too small
 			$need_update = true;
-		} else if ($this->in('short_check') && $this->is_git_repo_newer($version_mtime, DIR_ROOT)) {
+		} else if ($this->in('short_check') && $this->isGitRepoNewer($version_mtime, DIR_ROOT)) {
 			// Short format needs only app version, so do not check everything
 			$need_update = true;
 		} else if ($format != 'short') {
 			// If format is not 'short', check core and all plugins
-			if ($this->is_git_repo_newer($version_mtime, DIR_CORE)) {
+			if ($this->isGitRepoNewer($version_mtime, DIR_CORE)) {
 				$need_update = true;
 			} else {
 				if ($version_mtime < filemtime(DIR_PLUGIN)) {
@@ -81,7 +81,7 @@ class B_git__version extends Block
 					$need_update = true;
 				} else {
 					foreach (get_plugin_list() as $plugin) {
-						if ($this->is_git_repo_newer($version_mtime, DIR_PLUGIN.$plugin.'/')) {
+						if ($this->isGitRepoNewer($version_mtime, DIR_PLUGIN.$plugin.'/')) {
 							$need_update = true;
 							break;
 						}
@@ -92,7 +92,7 @@ class B_git__version extends Block
 
 		// Update version.ini
 		if ($need_update) {
-			$this->build_version_file($version_file);
+			$this->buildVersionFile($version_file);
 		}
 
 		// Get version data
@@ -100,7 +100,7 @@ class B_git__version extends Block
 
 		// Show version (if present)
 		if (!empty($version)) {
-			$this->template_add(null, 'core/version', array(
+			$this->templateAdd(null, 'core/version', array(
 					'version' => $version,
 					'format'  => $format,
 					'link'    => $this->in('link'),
@@ -112,7 +112,7 @@ class B_git__version extends Block
 	}
 
 
-	private function is_git_repo_newer($ref_mtime, $basedir)
+	private function isGitRepoNewer($ref_mtime, $basedir)
 	{
 		$gitdir = $basedir.'.git';
 		if (is_file($gitdir)) {
@@ -141,17 +141,17 @@ class B_git__version extends Block
 	}
 
 
-	private function build_version_file($file)
+	private function buildVersionFile($file)
 	{
 		log_msg('Updating version file "%s".', $file);
 
-		$info['app'] = $this->get_info(DIR_ROOT.'.git');
-		$info['core'] = $this->get_info(DIR_CORE.'.git');
+		$info['app'] = $this->getInfo(DIR_ROOT.'.git');
+		$info['core'] = $this->getInfo(DIR_CORE.'.git');
 
 		foreach (get_plugin_list() as $plugin) {
 			$dir = DIR_PLUGIN.$plugin.'/.git';
 			if (file_exists($dir)) {
-				$info['plugin:'.$plugin] = $this->get_info($dir);
+				$info['plugin:'.$plugin] = $this->getInfo($dir);
 			} else {
 				$info['plugin:'.$plugin] = array(
 					'note' => _('Plugin is part of the application.'),
@@ -190,7 +190,7 @@ class B_git__version extends Block
 	}
 
 
-	private function get_info($repo_dir)
+	private function getInfo($repo_dir)
 	{
 		if (!class_exists('Git')) {
 			require(dirname(dirname(__FILE__)).'/glip/lib/glip.php');
