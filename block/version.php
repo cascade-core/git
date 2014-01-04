@@ -192,10 +192,6 @@ class B_git__version extends Block
 
 	private function getInfo($repo_dir)
 	{
-		if (!class_exists('Git')) {
-			require(dirname(dirname(__FILE__)).'/glip/lib/glip.php');
-		}
-
 		try {
 			$repo = new Git($repo_dir);
 			$head = $repo->getHead();
