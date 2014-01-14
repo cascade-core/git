@@ -2,7 +2,7 @@
 	"name": "cascade/git",
 	"type": "cascade-plugin",
 	"description": "Load version info from Git repositories",
-	"license": "BSD-3-Clause",
+	"license": "Apache-2.0",
 	"authors": [
 		{
 			"name": "Josef Kufner",
