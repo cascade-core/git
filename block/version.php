@@ -21,7 +21,7 @@
  * core/devel/version block. No external binary is executed.
  */
 
-class B_git__version extends Block
+class B_git__version extends \Cascade\Core\Block
 {
 	const force_exec = true;
 
