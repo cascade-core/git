@@ -13,7 +13,7 @@
 		"plugin": "git"
 	},
 	"require": {
-		"cascade/composer-plugin": "dev-master",
+		"cascade/composer-plugin": ">=1.1",
 		"frozen-doe.net/glip": "dev-master"
 	}
 }
