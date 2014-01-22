@@ -5,15 +5,24 @@
             "version:done"
         ]
     },
-    "block:version_hd": {
-        ".block": "core/out/header",
-        "text": "Version",
-        "enable": [
-            "version:done"
-        ]
-    },
-    "block:version": {
-        ".block": "git/version",
-        "format": "details"
+    "blocks": {
+        "version_hd": {
+            "block": "core/out/header",
+            "in_val": {
+                "text": "Version"
+            },
+            "in_con": {
+                "enable": [
+                    "version",
+                    "done"
+                ]
+            }
+        },
+        "version": {
+            "block": "git/version",
+            "in_val": {
+                "format": "details"
+            }
+        }
     }
 }
